@@ -1615,6 +1615,18 @@
     .sv-meta .sv-note { display: none; }
   }
 
+
+  /* Player de vídeo hospedado aqui (MP4), para peça que o YouTube bloqueou.
+     Vertical: o container 16/9 padrão deixaria o 9:16 espremido no meio com
+     tarjas enormes, então ele passa a ser regido pela altura da tela. */
+  .cinema-iframe-wrapper video { position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: contain; background: #000; border: 0; }
+  .cinema-container.portrait { aspect-ratio: 9 / 16; width: auto; height: 86vh;
+    max-width: 94vw; max-height: 86vh; }
+  @media (max-width: 900px) {
+    .cinema-container.portrait { height: auto; width: 95%; max-height: 80vh; }
+  }
+
 </style>
 </head>
 <body data-titles="mescla">
@@ -1827,8 +1839,8 @@
       </div>
     </div>
     <div class="case case-2 reveal">
-      <div class="case-media animate-card" data-video-id="COLwl0HuKGU" data-cursor-text="PLAY">
-        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/COLwl0HuKGU/maxresdefault.jpg');"></div>
+      <div class="case-media animate-card" data-video-src="VIDEOS/trm-copa.mp4" data-portrait="1" data-cursor-text="PLAY">
+        <div class="case-thumbnail" style="background-image: url('VIDEOS/trm-copa.jpg');"></div>
         <div class="case-play-btn">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
         </div>
@@ -2397,20 +2409,42 @@
   // ==========================================================================
   const cinemaModal = document.getElementById('cinema-modal');
   const iframeWrapper = cinemaModal.querySelector('.cinema-iframe-wrapper');
-  const caseMedias = document.querySelectorAll('[data-video-id]');
+  const cinemaContainer = cinemaModal.querySelector('.cinema-container');
+  const caseMedias = document.querySelectorAll('[data-video-id], [data-video-src]');
   const cinemaClose = cinemaModal.querySelector('.cinema-close');
 
   caseMedias.forEach(media => {
     media.addEventListener('click', () => {
-      const videoId = media.getAttribute('data-video-id');
-      
-      // 1. Ativa o modal e para o scroll antes de carregar o iframe
+      const videoId  = media.getAttribute('data-video-id');
+      const videoSrc = media.getAttribute('data-video-src');
+
+      // 1. Ativa o modal e para o scroll antes de carregar o player
       cinemaModal.classList.add('active');
+      cinemaContainer.classList.toggle('portrait', media.hasAttribute('data-portrait'));
       lenis.stop();
-      
+
       // Esconde cursores normais por cima do vídeo
       cursorDot.style.display = 'none';
       cursorFollower.style.display = 'none';
+
+      // Vídeo hospedado aqui (MP4): monta na hora, ainda dentro do gesto do
+      // usuário — é isso que permite o play automático COM som, que o iframe do
+      // YouTube não consegue (testado em 03/08: lá o autoplay é bloqueado).
+      if (videoSrc) {
+        const v = document.createElement('video');
+        v.src = videoSrc;
+        v.poster = media.querySelector('.case-thumbnail')
+          ? getComputedStyle(media.querySelector('.case-thumbnail')).backgroundImage.slice(5, -2)
+          : '';
+        v.controls = true;
+        v.playsInline = true;
+        v.preload = 'auto';
+        iframeWrapper.innerHTML = '';
+        iframeWrapper.appendChild(v);
+        const tocar = v.play();
+        if (tocar && tocar.catch) tocar.catch(() => {}); // sem som liberado, fica nos controles
+        return;
+      }
 
       // 2. Aguarda a transição física do modal terminar (150ms) antes de injetar o iframe
       // Isso impede que o YouTube falhe com Erro 153 devido a cálculos de layout de tamanho zero
@@ -2446,9 +2480,15 @@
       cursorFollower.style.display = 'flex';
     }
 
-    // Esvazia o wrapper para descarregar o iframe completamente e liberar memória
+    // Pausa na hora: esvaziar só depois de 500ms deixaria o áudio tocando
+    // durante a transição de saída.
+    const vAtivo = iframeWrapper.querySelector('video');
+    if (vAtivo) vAtivo.pause();
+
+    // Esvazia o wrapper para descarregar o player completamente e liberar memória
     setTimeout(() => {
       iframeWrapper.innerHTML = '';
+      cinemaContainer.classList.remove('portrait');
     }, 500);
   }
 
