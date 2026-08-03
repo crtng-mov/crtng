@@ -886,14 +886,14 @@
     pointer-events: none;
   }
 
-  .frame-1 { background-image: url('FRAMES/F1.jpg'); background-color: #0a1a0e; }
-  .frame-2 { background-image: url('FRAMES/F2.jpg'); background-color: #1a1410; }
-  .frame-3 { background-image: url('FRAMES/F3.jpg'); background-color: #0a0a0a; }
-  .frame-4 { background-image: url('FRAMES/F4.jpg'); background-color: #0f1118; }
-  .frame-5 { background-image: url('FRAMES/F5.jpg'); background-color: #1a1a1a; }
-  .frame-6 { background-image: url('FRAMES/F6.jpg'); background-color: #181010; }
-  .frame-7 { background-image: url('FRAMES/F7.jpg'); background-color: #0a1a0e; }
-  .frame-8 { background-image: url('FRAMES/F8.jpg'); background-color: #0a0a0a; }
+  .frame-1 { background-image: url('https://crtng.com.br/FRAMES/F1.jpg'); background-color: #0a1a0e; }
+  .frame-2 { background-image: url('https://crtng.com.br/FRAMES/F2.jpg'); background-color: #1a1410; }
+  .frame-3 { background-image: url('https://crtng.com.br/FRAMES/F3.jpg'); background-color: #0a0a0a; }
+  .frame-4 { background-image: url('https://crtng.com.br/FRAMES/F4.jpg'); background-color: #0f1118; }
+  .frame-5 { background-image: url('https://crtng.com.br/FRAMES/F5.jpg'); background-color: #1a1a1a; }
+  .frame-6 { background-image: url('https://crtng.com.br/FRAMES/F6.jpg'); background-color: #181010; }
+  .frame-7 { background-image: url('https://crtng.com.br/FRAMES/F7.jpg'); background-color: #0a1a0e; }
+  .frame-8 { background-image: url('https://crtng.com.br/FRAMES/F8.jpg'); background-color: #0a0a0a; }
   .frame-label {
     display: none;
     position: absolute;
@@ -1242,10 +1242,342 @@
     .cinema-close { top: -48px; }
 
     footer { flex-direction: column; gap: 16px; text-align: center; }
+    .sobre-video { padding: 20px 24px 100px; }
+    .sv-play { width: 64px; height: 64px; }
   }
+
+  /* ==========================================================================
+     ⚑ PRÉVIA — MESCLA TIPOGRÁFICA (títulos Montserrat + acento Fraunces itálico)
+     Alternável pelo painel no topo. NADA disto está no site no ar.
+     ========================================================================== */
+  /* Modos "mescla" e "montserrat": títulos de display passam a Montserrat leve */
+  body[data-titles="mescla"] .hero h1,
+  body[data-titles="mescla"] .sobre h2,
+  body[data-titles="mescla"] .servicos h2,
+  body[data-titles="mescla"] .servico-title,
+  body[data-titles="mescla"] .portfolio h2,
+  body[data-titles="mescla"] .frames h2,
+  body[data-titles="mescla"] .clientes h2,
+  body[data-titles="mescla"] .contato h2,
+  body[data-titles="mescla"] .case-title,
+  body[data-titles="mescla"] .cliente,
+  body[data-titles="montserrat"] .hero h1,
+  body[data-titles="montserrat"] .sobre h2,
+  body[data-titles="montserrat"] .servicos h2,
+  body[data-titles="montserrat"] .servico-title,
+  body[data-titles="montserrat"] .portfolio h2,
+  body[data-titles="montserrat"] .frames h2,
+  body[data-titles="montserrat"] .clientes h2,
+  body[data-titles="montserrat"] .contato h2,
+  body[data-titles="montserrat"] .case-title,
+  body[data-titles="montserrat"] .cliente {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* HERO (mescla/montserrat): "HISTÓRIAS QUE" extrabold caixa-alta + "conectam." sobreposto na frente */
+  body[data-titles="mescla"] .hero h1,
+  body[data-titles="montserrat"] .hero h1 {
+    text-transform: uppercase;
+    font-weight: 800;
+    line-height: 0.86;
+  }
+  body[data-titles="mescla"] .hero h1 .title-wrapper,
+  body[data-titles="montserrat"] .hero h1 .title-wrapper { margin-bottom: 0; line-height: 0.92; }
+  /* a palavra em verde: minúscula, maior e trazida pra frente, sobrepondo o título */
+  body[data-titles="mescla"] .hero h1 em,
+  body[data-titles="montserrat"] .hero h1 em {
+    text-transform: none;
+    font-size: 1.24em;
+  }
+  body[data-titles="mescla"] .hero h1 .title-wrapper:last-of-type,
+  body[data-titles="montserrat"] .hero h1 .title-wrapper:last-of-type {
+    line-height: 1.05;
+    margin-top: -0.25em;
+    position: relative;
+    top: -0.45em;
+    z-index: 5;
+    overflow: visible;
+  }
+
+  /* MESCLA: a palavra em verde continua Fraunces itálico — o "pop" editorial */
+  body[data-titles="mescla"] .hero h1 em,
+  body[data-titles="mescla"] .sobre h2 em,
+  body[data-titles="mescla"] .servicos h2 em,
+  body[data-titles="mescla"] .portfolio h2 em,
+  body[data-titles="mescla"] .frames h2 em,
+  body[data-titles="mescla"] .clientes h2 em,
+  body[data-titles="mescla"] .contato h2 em,
+  body[data-titles="mescla"] .cliente em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0;
+  }
+
+  /* TUDO MONTSERRAT: acento verde em Montserrat itálico (visual mais moderno/geométrico) */
+  body[data-titles="montserrat"] .hero h1 em,
+  body[data-titles="montserrat"] .sobre h2 em,
+  body[data-titles="montserrat"] .servicos h2 em,
+  body[data-titles="montserrat"] .portfolio h2 em,
+  body[data-titles="montserrat"] .frames h2 em,
+  body[data-titles="montserrat"] .clientes h2 em,
+  body[data-titles="montserrat"] .contato h2 em,
+  body[data-titles="montserrat"] .cliente em {
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ==========================================================================
+     QUEM SOMOS · VÍDEO INSTITUCIONAL (novo — faixa abaixo do "Sobre")
+     ========================================================================== */
+  .sobre-video {
+    padding: 20px 48px 160px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .sobre-video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 40px 90px rgba(0,0,0,0.55);
+    background:
+      radial-gradient(ellipse at 50% 38%, rgba(3,255,92,0.10) 0%, transparent 60%),
+      linear-gradient(180deg, #101410 0%, #070707 100%);
+  }
+  .sobre-video-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.14) 2px, rgba(0,0,0,0.14) 4px);
+    opacity: 0.4; pointer-events: none;
+  }
+  .sv-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 24px; text-align: center; padding: 24px;
+  }
+  .sv-play {
+    width: 92px; height: 92px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 16px 40px rgba(3,255,92,0.35);
+  }
+  .sv-play svg { margin-left: 5px; }
+  .sv-headline {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: clamp(19px, 2.3vw, 30px);
+    letter-spacing: -0.02em;
+    color: var(--white);
+    max-width: 640px;
+    line-height: 1.3;
+  }
+  .sv-headline em { font-family: var(--font-serif); font-style: italic; color: var(--green); }
+  .sv-badge {
+    position: absolute; top: 20px; left: 20px;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--green); font-weight: 700;
+    border: 1px solid rgba(3,255,92,0.35);
+    padding: 6px 12px; border-radius: 100px;
+    background: rgba(3,255,92,0.06);
+  }
+  .sv-meta {
+    position: absolute; bottom: 20px; left: 22px; right: 22px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .sv-meta .sv-who { font-size: 12px; letter-spacing: 0.05em; color: var(--white); }
+  .sv-meta .sv-note { font-size: 11px; letter-spacing: 0.05em; color: var(--gray); text-align: right; }
+
+  /* ==========================================================================
+     PAINEL DE PRÉVIA (ferramenta de decisão — removível, não vai pro site)
+     ========================================================================== */
+
+  /* ==========================================================================
+     HERO — ajuste aprovado 27/07 (variação A)
+     "HISTÓRIAS QUE" menor · "conectam." maior e sobrepondo · cauda do Q inteira
+     ========================================================================== */
+
+  /* O wrapper tem overflow:hidden (necessário pro word-reveal) e line-height
+     0.92 no modo mescla — a cauda do Q descia da baseline e era ceifada.
+     Amplia a caixa por baixo e devolve o espaço com margin negativa. */
+  body[data-titles="mescla"] .hero h1 .title-wrapper:not(:last-of-type) {
+    padding-bottom: .20em;
+    margin-bottom: -.20em;
+  }
+  body[data-titles="mescla"] .hero h1 { font-size: clamp(48px, 7.9vw, 123px); }
+  body[data-titles="mescla"] .hero h1 em {
+    font-size: 1.62em;
+    text-shadow: 0 4px 22px rgba(0,0,0,0.60);  /* separa o verde das hastes brancas */
+  }
+  body[data-titles="mescla"] .hero h1 .title-wrapper:last-of-type {
+    top: -0.72em;
+    margin-top: -0.25em;
+    margin-bottom: -0.55em;   /* recolhe o buraco que o top negativo deixaria */
+  }
+
+  /* ==========================================================================
+     CLIENTES — "No ar": vídeo publicado no perfil do cliente (aprovado 27/07)
+     Frame parado + clipe mudo de 4s no hover. Clique abre o post.
+     ========================================================================== */
+  .clientes-grid {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    margin-top: 56px;
+    padding: 0 48px;
+  }
+  .cliente-card {
+    position: relative;
+    width: 246px;
+    flex: 0 0 auto;
+    text-decoration: none;
+    display: block;
+    transition: transform .45s cubic-bezier(.16,1,.3,1);
+  }
+  .cc-media {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    transition: border-color .4s ease, box-shadow .4s ease;
+  }
+  .cc-media img, .cc-media video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .cc-media video { opacity: 0; transition: opacity .35s ease; }
+  .cliente-card.tocando .cc-media video { opacity: 1; }
+  .cc-media::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+  }
+  .cc-play {
+    position: absolute; top: 12px; right: 12px; z-index: 3;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(10,10,10,0.55);
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .cc-play span {
+    width: 0; height: 0;
+    border-left: 7px solid var(--white);
+    border-top: 4.5px solid transparent;
+    border-bottom: 4.5px solid transparent;
+    margin-left: 2px;
+  }
+  .cc-meta {
+    display: flex; flex-direction: column; gap: 5px;
+    margin-top: 14px; padding-left: 2px;
+  }
+  .cc-nome {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 600;
+    letter-spacing: -0.01em; color: var(--white);
+    white-space: nowrap;
+  }
+  .cc-link {
+    font-family: var(--font-sans);
+    font-size: 10px; letter-spacing: 0.06em;
+    color: rgba(245,245,240,0.5);
+    transition: color .3s ease;
+    white-space: nowrap;
+  }
+  .cliente-card:hover { transform: translateY(-8px); }
+  .cliente-card:hover .cc-media {
+    border-color: rgba(3,255,92,0.55);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 0 1px rgba(3,255,92,0.25);
+  }
+  .cliente-card:hover .cc-link { color: var(--green); }
+
+  @media (max-width: 900px) {
+    .clientes-grid {
+      overflow-x: auto;
+      justify-content: flex-start;
+      padding: 0 24px 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cliente-card { width: 210px; }
+  }
+
+  /* ==========================================================================
+     KPIs — faixa de indicadores entre o "Quem somos" e o vídeo institucional
+     Quem não dá play no vídeo ainda leva os números. Tipografia, sem card.
+     ========================================================================== */
+  .kpis {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px 120px;
+  }
+  .kpis-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .kpi {
+    padding: 44px 28px 0;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .kpi:last-child { border-right: none; }
+  .kpi-num {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: clamp(38px, 4.2vw, 62px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--white);
+  }
+  .kpi-num span { color: var(--green); }
+  .kpi-num .un {                  /* unidade escrita ("dias") não pode ter o peso do número */
+    font-size: 0.42em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-left: 2px;
+  }
+  .kpi-label {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-top: 16px;
+  }
+  .kpi-base {                     /* a régua do número — pequena, mas presente */
+    font-family: var(--font-sans);
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--gray);
+    margin-top: 6px;
+    max-width: 210px;
+  }
+  @media (max-width: 900px) {
+    .kpis { padding: 0 24px 80px; }
+    .kpis-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi { padding: 32px 18px 0; }
+    .kpi:nth-child(2) { border-right: none; }
+    .kpi:nth-child(3), .kpi:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.08); }
+  }
+
 </style>
 </head>
-<body>
+<body data-titles="mescla">
+
+
 
 <!-- CONTÊINER DE CURSOR CUSTOMIZADO -->
 <div class="custom-cursor"></div>
@@ -1336,6 +1668,51 @@
           <p>Mensagens claras e rápidas para decisões ágeis.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUEM SOMOS · VÍDEO (novo — faixa abaixo do "Sobre") -->
+
+<!-- KPIs -->
+<section class="kpis">
+  <div class="kpis-grid">
+    <div class="kpi reveal">
+      <div class="kpi-num">95<span>%</span></div>
+      <div class="kpi-label">aprovados de primeira</div>
+      <div class="kpi-base">o que acontece é uma alteração ou outra, não refazer</div>
+    </div>
+    <div class="kpi reveal">
+      <div class="kpi-num">4<span>-</span>5<span class="un">dias</span></div>
+      <div class="kpi-label">entrega média</div>
+      <div class="kpi-base">o prazo de contrato é de 7 dias após a última gravação</div>
+    </div>
+    <div class="kpi reveal">
+      <div class="kpi-num"><span>+</span>80</div>
+      <div class="kpi-label">vídeos entregues</div>
+      <div class="kpi-base">evento, corporativo, industrial e esporte</div>
+    </div>
+    <div class="kpi reveal">
+      <div class="kpi-num">2<span>×</span></div>
+      <div class="kpi-label">mais engajamento</div>
+      <div class="kpi-base">em vídeo de oferta, comparado à produção interna do cliente</div>
+    </div>
+  </div>
+</section>
+
+<section class="sobre-video" id="sobre-video">
+  <div class="section-label reveal">A CRTNG em 2 minutos</div>
+  <div class="sobre-video-frame reveal" data-video-id="0SBqlkmCj6A" data-cursor-text="PLAY">
+    <div class="sv-badge">▶ Vídeo · Horizontal 4K</div>
+    <div class="sv-center">
+      <div class="sv-play">
+        <svg viewBox="0 0 24 24" width="30" height="30"><polygon points="6 4 20 12 6 20 6 4" fill="#0a0a0a"/></svg>
+      </div>
+      <div class="sv-headline">Rod &amp; Lucas explicando, em 2 minutos, o que a CRTNG <em>resolve</em> — não só o vídeo, a história por trás dele.</div>
+    </div>
+    <div class="sv-meta">
+      <div class="sv-who">Rod &amp; Lucas Souto · sócios</div>
+      <div class="sv-note">Clique para assistir</div>
     </div>
   </div>
 </section>
@@ -1482,14 +1859,70 @@
 
 <!-- CLIENTES -->
 <section class="clientes">
-  <div class="section-label reveal" style="justify-content: center;">Confiança</div>
+  <div class="section-label reveal" style="justify-content: center;">No ar</div>
   <h2 class="reveal">Marcas que <em>caminham</em> com a gente.</h2>
-  <div class="clientes-list reveal">
-    <div class="cliente"><em>Haras</em> Entrevero</div>
-    <div class="cliente">TRM <em>Energy</em></div>
-    <div class="cliente"><em>Igapó</em></div>
-    <div class="cliente">Studio DR <em>Arquitetura</em></div>
-    <div class="cliente"><em>Dra.</em> Sandra Cabral</div>
+  <div class="clientes-grid reveal">
+      <a class="cliente-card" href="https://www.instagram.com/entrevero.brasil/reel/DUKAAkzgBLT/" target="_blank" rel="noopener" data-cursor-text="Ver no perfil">
+        <div class="cc-media">
+          <img src="CLIENTES/haras.jpg" alt="Haras Entrevero">
+          <video muted loop playsinline preload="none"
+                 src="CLIENTES/haras.mp4"></video>
+          <div class="cc-play"><span></span></div>
+        </div>
+        <div class="cc-meta">
+          <span class="cc-nome">Haras Entrevero</span>
+          <span class="cc-link">@entrevero.brasil ↗</span>
+        </div>
+      </a>
+      <a class="cliente-card" href="https://www.instagram.com/p/DZH536Hu13J/" target="_blank" rel="noopener" data-cursor-text="Ver no perfil">
+        <div class="cc-media">
+          <img src="CLIENTES/igapo.jpg" alt="Igapó Marcenaria">
+          <video muted loop playsinline preload="none"
+                 src="CLIENTES/igapo.mp4"></video>
+          <div class="cc-play"><span></span></div>
+        </div>
+        <div class="cc-meta">
+          <span class="cc-nome">Igapó Marcenaria</span>
+          <span class="cc-link">@igapomarcenaria ↗</span>
+        </div>
+      </a>
+      <a class="cliente-card" href="https://www.instagram.com/p/DbBi7hih8XY/" target="_blank" rel="noopener" data-cursor-text="Ver no perfil">
+        <div class="cc-media">
+          <img src="CLIENTES/trm.jpg" alt="TRM Energy">
+          <video muted loop playsinline preload="none"
+                 src="CLIENTES/trm.mp4"></video>
+          <div class="cc-play"><span></span></div>
+        </div>
+        <div class="cc-meta">
+          <span class="cc-nome">TRM Energy</span>
+          <span class="cc-link">@trmenergy ↗</span>
+        </div>
+      </a>
+      <a class="cliente-card" href="https://www.instagram.com/p/DYhkkjbO5Ag/" target="_blank" rel="noopener" data-cursor-text="Ver no perfil">
+        <div class="cc-media">
+          <img src="CLIENTES/scalet.jpg" alt="Scalet Odontologia">
+          <video muted loop playsinline preload="none"
+                 src="CLIENTES/scalet.mp4"></video>
+          <div class="cc-play"><span></span></div>
+        </div>
+        <div class="cc-meta">
+          <span class="cc-nome">Scalet Odontologia</span>
+          <span class="cc-link">@drvitorscalet ↗</span>
+        </div>
+      </a>
+      <a class="cliente-card" href="https://www.instagram.com/p/DX-BU-jJ-ju/" target="_blank" rel="noopener" data-cursor-text="Ver no perfil">
+        <div class="cc-media">
+          <img src="CLIENTES/sandra.jpg" alt="Dra. Sandra Cabral">
+          <video muted loop playsinline preload="none"
+                 src="CLIENTES/sandra.mp4"></video>
+          <div class="cc-play"><span></span></div>
+        </div>
+        <div class="cc-meta">
+          <span class="cc-nome">Dra. Sandra Cabral</span>
+          <span class="cc-link">@dra_sandracabral ↗</span>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1922,7 +2355,7 @@
   // ==========================================================================
   const cinemaModal = document.getElementById('cinema-modal');
   const iframeWrapper = cinemaModal.querySelector('.cinema-iframe-wrapper');
-  const caseMedias = document.querySelectorAll('.case-media');
+  const caseMedias = document.querySelectorAll('[data-video-id]');
   const cinemaClose = cinemaModal.querySelector('.cinema-close');
 
   caseMedias.forEach(media => {
@@ -1985,6 +2418,28 @@
     if (e.key === 'Escape' && cinemaModal.classList.contains('active')) {
       closeCinema();
     }
+  });
+</script>
+
+
+
+
+<script>
+  /* Clientes "No ar": o clipe só baixa quando o mouse encosta (preload="none").
+     No celular não há hover — fica o frame parado, e o clique abre o post. */
+  document.querySelectorAll('.cliente-card').forEach(function (card) {
+    var v = card.querySelector('video');
+    if (!v) return;
+    card.addEventListener('mouseenter', function () {
+      card.classList.add('tocando');
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+    card.addEventListener('mouseleave', function () {
+      card.classList.remove('tocando');
+      v.pause();
+      v.currentTime = 0;
+    });
   });
 </script>
 
