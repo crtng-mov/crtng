@@ -1827,8 +1827,8 @@
       </div>
     </div>
     <div class="case case-2 reveal">
-      <div class="case-media animate-card" data-video-id="zUgR3pQpuMw" data-cursor-text="PLAY">
-        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/zUgR3pQpuMw/maxresdefault.jpg');"></div>
+      <div class="case-media animate-card" data-video-id="COLwl0HuKGU" data-cursor-text="PLAY">
+        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/COLwl0HuKGU/maxresdefault.jpg');"></div>
         <div class="case-play-btn">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
         </div>
@@ -2416,10 +2416,13 @@
       // Isso impede que o YouTube falhe com Erro 153 devido a cálculos de layout de tamanho zero
       setTimeout(() => {
         const iframe = document.createElement('iframe');
-        // autoplay: quem clicou no card já pediu o vídeo — sem isso o YouTube abre
-        // parado, com o botão central esperando um segundo toque (reportado 03/08).
+        // autoplay REVERTIDO em 03/08: o Chrome bloqueia o som e o player ficava
+        // travado em 0:00 com spinner, mantendo os controles na tela — pior que
+        // o clique extra que ele tentava evitar. Testado no ar, no Chrome do Rod.
         // playsinline: no iOS, sem ele o vídeo sequestra a tela em fullscreen nativo.
-        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&playsinline=1`;
+        // cc_load_policy=0: desliga a legenda AUTOMÁTICA do YouTube, que entrava
+        // por cima do texto queimado do próprio vídeo (print de 03/08).
+        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1&cc_load_policy=0`;
         iframe.frameBorder = "0";
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
         iframe.allowFullscreen = true;
