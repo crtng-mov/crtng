@@ -1573,6 +1573,48 @@
     .kpi:nth-child(3), .kpi:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.08); }
   }
 
+
+  /* ==========================================================================
+     CORREÇÕES DE TELA PEQUENA — 03/08/2026
+     Reportado pelo Rod: hero cortado em celulares menores e a seção do vídeo
+     institucional comprimida. Ambos medidos, não estimados.
+     ========================================================================== */
+
+  /* 1. HERO — "HISTÓRIAS QUE" mede 7,97x o font-size (Montserrat 800, -0.03em).
+     Com o piso de 48px do clamp ele pedia 382px de largura, e o .hero tem
+     overflow:hidden e nenhum padding — então abaixo de ~382px de viewport o
+     texto era cortado em vez de reduzir. Baixar SÓ o piso resolve: acima de
+     405px o 7.9vw volta a mandar e o desktop fica idêntico ao aprovado. */
+  body[data-titles="mescla"] .hero h1 { font-size: clamp(32px, 7.9vw, 123px); }
+  .hero h1 { padding-left: 16px; padding-right: 16px; }
+  /* Telas muito estreitas (iPhone SE e afins): 32px ainda parte "HISTORIAS QUE"
+     em duas linhas, entao o piso cede mais um degrau. */
+  @media (max-width: 344px) {
+    body[data-titles="mescla"] .hero h1 { font-size: 27px; }
+  }
+
+  /* 2. SEÇÃO DO VÍDEO INSTITUCIONAL — o frame é 16/9, o que dá ~175px de altura
+     num celular de 360px. Dentro dele o play (64) + a headline (4 linhas) + os
+     paddings pedem ~235px: 34% a mais do que cabe. Daí o esmagamento.
+     Solução: proporção mais alta e conteúdo proporcional em tela pequena. */
+  @media (max-width: 700px) {
+    /* Solta a proporcao fixa e tira o .sv-center do posicionamento absoluto:
+       o frame passa a ter a altura do proprio conteudo. Assim nao ha tela
+       estreita o bastante para comprimir, nem calculo para manter no futuro. */
+    .sobre-video-frame { aspect-ratio: auto; }
+    .sv-center { position: relative; inset: auto; padding: 56px 18px 52px; gap: 16px; }
+    .sv-play { width: 56px; height: 56px; }
+    .sv-play svg { width: 22px; height: 22px; }
+    .sv-headline { font-size: 15px; line-height: 1.35; max-width: 100%; }
+    .sv-badge { top: 12px; left: 12px; font-size: 9px; padding: 5px 9px; }
+    .sv-meta { bottom: 12px; left: 14px; right: 14px; }
+    .sv-meta .sv-who, .sv-meta .sv-note { font-size: 10px; }
+  }
+  @media (max-width: 420px) {
+    .sv-headline { font-size: 14px; }
+    .sv-meta .sv-note { display: none; }
+  }
+
 </style>
 </head>
 <body data-titles="mescla">
@@ -1702,7 +1744,7 @@
 
 <section class="sobre-video" id="sobre-video">
   <div class="section-label reveal">A CRTNG em 2 minutos</div>
-  <div class="sobre-video-frame reveal" data-video-id="0SBqlkmCj6A" data-cursor-text="PLAY">
+  <div class="sobre-video-frame reveal" data-video-id="A-lebGVion8" data-cursor-text="PLAY">
     <div class="sv-badge">▶ Vídeo · Horizontal 4K</div>
     <div class="sv-center">
       <div class="sv-play">
@@ -1785,15 +1827,15 @@
       </div>
     </div>
     <div class="case case-2 reveal">
-      <div class="case-media animate-card" data-video-id="KN4xITeekXE" data-cursor-text="PLAY">
-        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/KN4xITeekXE/maxresdefault.jpg');"></div>
+      <div class="case-media animate-card" data-video-id="zUgR3pQpuMw" data-cursor-text="PLAY">
+        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/zUgR3pQpuMw/maxresdefault.jpg');"></div>
         <div class="case-play-btn">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
         </div>
       </div>
       <div class="case-info">
-        <div class="case-title">Haras Entrevero</div>
-        <div class="case-category">Haras · Shorts</div>
+        <div class="case-title">TRM Energy</div>
+        <div class="case-category">Evento · Aftermovie</div>
       </div>
     </div>
     <div class="case case-3 reveal">
@@ -1821,15 +1863,15 @@
       </div>
     </div>
     <div class="case case-5 reveal">
-      <div class="case-media animate-card" data-video-id="1nWifRhFAXU" data-cursor-text="PLAY">
-        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/1nWifRhFAXU/maxresdefault.jpg');"></div>
+      <div class="case-media animate-card" data-video-id="DulT6-E6l7A" data-cursor-text="PLAY">
+        <div class="case-thumbnail" style="background-image: url('https://img.youtube.com/vi/DulT6-E6l7A/maxresdefault.jpg');"></div>
         <div class="case-play-btn">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
         </div>
       </div>
       <div class="case-info">
-        <div class="case-title">TRM Energy</div>
-        <div class="case-category">Real time · Eventos</div>
+        <div class="case-title">Igapó Marcenaria</div>
+        <div class="case-category">Marcenaria · Depoimento</div>
       </div>
     </div>
   </div>
@@ -2374,8 +2416,10 @@
       // Isso impede que o YouTube falhe com Erro 153 devido a cálculos de layout de tamanho zero
       setTimeout(() => {
         const iframe = document.createElement('iframe');
-        // Usa os parâmetros originais 100% seguros e compatíveis do v1
-        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+        // autoplay: quem clicou no card já pediu o vídeo — sem isso o YouTube abre
+        // parado, com o botão central esperando um segundo toque (reportado 03/08).
+        // playsinline: no iOS, sem ele o vídeo sequestra a tela em fullscreen nativo.
+        iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&playsinline=1`;
         iframe.frameBorder = "0";
         iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
         iframe.allowFullscreen = true;
