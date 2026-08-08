@@ -1,0 +1,9 @@
+# Arquivos de trabalho que não vão pro ar.
+# Atenção: o Git não aceita comentário na mesma linha do padrão — cada
+# regra precisa ficar sozinha, senão o comentário vira parte do nome.
+
+# PNGs em resolução cheia e scripts que geram os assets do site
+_fontes/
+
+# metadado do Windows/OneDrive
+desktop.ini

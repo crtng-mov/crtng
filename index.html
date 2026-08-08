@@ -1347,21 +1347,26 @@
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.06);
     box-shadow: 0 40px 90px rgba(0,0,0,0.55);
-    background:
-      radial-gradient(ellipse at 50% 38%, rgba(3,255,92,0.10) 0%, transparent 60%),
-      linear-gradient(180deg, #101410 0%, #070707 100%);
+    /* Capa: Rod | Lucas em díptico. A faixa escura de baixo já vem assada na
+       imagem — é onde o texto vive. A cor sólida é o fallback enquanto o JPG
+       não chega, para o frame nunca piscar branco. */
+    background-color: #070707;
+    background-image: url('VIDEOS/institucional-capa.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .sobre-video-frame::after {
     content: '';
     position: absolute; inset: 0;
     background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.14) 2px, rgba(0,0,0,0.14) 4px);
-    opacity: 0.4; pointer-events: none;
+    opacity: 0.18; pointer-events: none;   /* discreta: sobre foto, 0.4 sujava */
   }
   .sv-center {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 24px; text-align: center; padding: 24px;
+    align-items: center; justify-content: flex-end;   /* desce para a faixa escura */
+    gap: 18px; text-align: center; padding: 24px 24px 84px;
   }
   .sv-play {
     width: 92px; height: 92px;
@@ -1379,6 +1384,7 @@
     color: var(--white);
     max-width: 640px;
     line-height: 1.3;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.75);   /* garante leitura sobre a foto */
   }
   .sv-headline em { font-family: var(--font-serif); font-style: italic; color: var(--green); }
   .sv-badge {
@@ -1394,8 +1400,8 @@
     display: flex; justify-content: space-between; align-items: flex-end;
     gap: 16px; flex-wrap: wrap;
   }
-  .sv-meta .sv-who { font-size: 12px; letter-spacing: 0.05em; color: var(--white); }
-  .sv-meta .sv-note { font-size: 11px; letter-spacing: 0.05em; color: var(--gray); text-align: right; }
+  .sv-meta .sv-who { font-size: 12px; letter-spacing: 0.05em; color: var(--white); text-shadow: 0 2px 12px rgba(0,0,0,0.8); }
+  .sv-meta .sv-note { font-size: 11px; letter-spacing: 0.05em; color: #c8cec8; text-align: right; text-shadow: 0 2px 12px rgba(0,0,0,0.8); }
 
   /* ==========================================================================
      PAINEL DE PRÉVIA (ferramenta de decisão — removível, não vai pro site)
@@ -1601,7 +1607,14 @@
     /* Solta a proporcao fixa e tira o .sv-center do posicionamento absoluto:
        o frame passa a ter a altura do proprio conteudo. Assim nao ha tela
        estreita o bastante para comprimir, nem calculo para manter no futuro. */
-    .sobre-video-frame { aspect-ratio: auto; }
+    /* Sem o 16/9 o frame fica quase quadrado e o texto deixa de cair na faixa
+       escura da capa — daí o véu extra por cima da foto, só em tela pequena. */
+    .sobre-video-frame {
+      aspect-ratio: auto;
+      background-image:
+        linear-gradient(180deg, rgba(6,8,6,0.58) 0%, rgba(6,8,6,0.38) 42%, rgba(6,8,6,0.74) 100%),
+        url('VIDEOS/institucional-capa.jpg');
+    }
     .sv-center { position: relative; inset: auto; padding: 56px 18px 52px; gap: 16px; }
     .sv-play { width: 56px; height: 56px; }
     .sv-play svg { width: 22px; height: 22px; }
