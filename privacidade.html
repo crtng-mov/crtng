@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de privacidade — CRTNG</title>
+<meta name="description" content="Como a CRTNG trata os dados de quem visita o site, fala com a gente e contrata nossos serviços.">
+<link rel="canonical" href="https://crtng.com.br/privacidade">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #03FF5C;
+    --black: #0a0a0a;
+    --black-3: #1c1c1c;
+    --white: #f5f5f0;
+    --text: #d6d6d0;
+    --gray: #8a8a85;
+    --gray-dim: #4a4a48;
+    --font-serif: 'Fraunces', serif;
+    --font-sans: 'Montserrat', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN TEXTURE — igual à home */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* TOPO */
+  .topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    border-bottom: 1px solid var(--black-3);
+  }
+
+  .logo-mark {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo-mark span { color: var(--green); }
+
+  .voltar {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .voltar:hover { color: var(--green); }
+
+  /* CONTEÚDO */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 96px 24px 120px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(44px, 7vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+
+  h1 em, h2 em { font-style: italic; color: var(--green); }
+
+  .lead {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .data {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  section {
+    padding-top: 64px;
+    margin-top: 64px;
+    border-top: 1px solid var(--black-3);
+    scroll-margin-top: 16px;
+  }
+
+  .num {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  p, li {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  p + p, ul + p, ol + p, p + ul { margin-top: 16px; }
+
+  strong { color: var(--white); font-weight: 600; }
+
+  a {
+    color: var(--green);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  ul { list-style: none; }
+
+  ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-top: 10px;
+  }
+
+  ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 10px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  ol {
+    list-style: none;
+    counter-reset: passo;
+  }
+
+  ol li {
+    counter-increment: passo;
+    position: relative;
+    padding-left: 44px;
+    margin-top: 16px;
+  }
+
+  ol li::before {
+    content: counter(passo, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--green);
+  }
+
+  .base {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--gray);
+  }
+
+  .nw { white-space: nowrap; }
+
+  /* RODAPÉ — igual à home, com a razão social */
+  footer {
+    padding: 48px;
+    border-top: 1px solid var(--gray-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  footer .logo-mark { font-size: 14px; }
+
+  @media (max-width: 900px) {
+    .topo { padding: 20px 24px; }
+    main { padding: 64px 24px 96px; }
+    section { padding-top: 48px; margin-top: 48px; }
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 40px 24px;
+      line-height: 1.8;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <a href="/" class="logo-mark">CRTNG<span>.</span></a>
+  <a href="/" class="voltar">← Voltar ao site</a>
+</header>
+
+<main>
+  <div class="eyebrow">Política de privacidade</div>
+  <h1>Como cuidamos dos seus <em>dados.</em></h1>
+  <p class="lead">Esta página explica quais dados a CRTNG recebe, para que usa, com quem compartilha, por quanto tempo guarda e como você pede para ver, corrigir ou apagar seus dados.</p>
+  <p class="data">Última atualização: 22 de setembro de 2026</p>
+
+  <section id="quem-somos">
+    <span class="num">01</span>
+    <h2>Quem <em>somos</em></h2>
+    <p>A CRTNG (Creating Audiovisual) é uma produtora audiovisual de Salto/SP, nome comercial de <strong>58.615.971 RODRIGO MENDONCA</strong>, CNPJ <strong>58.615.971/0001-26</strong>. Somos a controladora dos dados descritos aqui, nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a LGPD).</p>
+    <p>Para qualquer assunto de privacidade, escreva para <a href="mailto:creating@crtng.com.br">creating@crtng.com.br</a>.</p>
+  </section>
+
+  <section id="dados">
+    <span class="num">02</span>
+    <h2>Que dados recebemos e <em>para quê</em></h2>
+    <ul>
+      <li><strong>Site.</strong> O crtng.com.br não tem formulário, login nem cookies. Medimos as visitas com o Cloudflare Web Analytics, que só entrega números agregados e não identifica quem visitou. Fontes, bibliotecas e vídeos do YouTube (esses, só quando você dá play) vêm de serviços externos, que recebem o endereço IP do seu navegador, como em qualquer site.</li>
+      <li><strong>Contato.</strong> Quando você fala com a gente pelo WhatsApp, pelo Instagram ou por e-mail, recebemos seu nome, seu contato e o conteúdo da conversa, para responder, preparar orçamento e combinar o trabalho.</li>
+      <li><strong>Clientes.</strong> Para contrato, nota fiscal e cobrança, tratamos nome ou razão social, CPF ou CNPJ, endereço e contatos.</li>
+    </ul>
+    <p class="base">Bases legais: atender pedidos que você nos faz e executar contratos (LGPD, art. 7º, V), cumprir obrigações legais, como emitir nota fiscal (art. 7º, II), e legítimo interesse, para medir as visitas do site e organizar o atendimento (art. 7º, IX).</p>
+  </section>
+
+  <section id="whatsapp">
+    <span class="num">03</span>
+    <h2>Mensagens no <em>WhatsApp</em></h2>
+    <p>Atendemos pelo WhatsApp Business no número <strong class="nw">+55 11 95721-3373</strong> e usamos a plataforma oficial do WhatsApp Business, da Meta. Por ela, recebemos o seu número de telefone, o nome do seu perfil e as mensagens da conversa. Usamos esses dados só para responder você e organizar o nosso atendimento.</p>
+    <p>Não vendemos suas mensagens, não usamos para publicidade e não usamos para treinar ou aprimorar modelos de inteligência artificial. O WhatsApp trata os dados da conversa conforme a <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">política de privacidade dele</a>.</p>
+  </section>
+
+  <section id="compartilhamento">
+    <span class="num">04</span>
+    <h2>Com quem <em>compartilhamos</em></h2>
+    <p>Não vendemos nem alugamos dados pessoais. Compartilhamos só o necessário com fornecedores que prestam serviço à CRTNG:</p>
+    <ul>
+      <li>plataformas de mensagem e redes sociais, como o WhatsApp e o Instagram, da Meta;</li>
+      <li>hospedagem do site, e-mail e armazenamento em nuvem;</li>
+      <li>ferramentas de produtividade, inclusive de inteligência artificial, que a equipe usa para organizar o atendimento;</li>
+      <li>órgãos públicos, quando a lei exige, como na emissão de nota fiscal.</li>
+    </ul>
+    <p>Alguns desses fornecedores ficam fora do Brasil, principalmente nos Estados Unidos, e só recebem dados para prestar o serviço à CRTNG.</p>
+  </section>
+
+  <section id="prazos">
+    <span class="num">05</span>
+    <h2>Por quanto tempo <em>guardamos</em></h2>
+    <p>Guardamos os dados pelo tempo necessário para o atendimento e para o trabalho contratado. Contratos e documentos fiscais ficam pelo prazo exigido por lei, em geral 5 anos. Conversas de quem ainda não é cliente ficam enquanto forem úteis para retomar o contato, ou até você pedir a exclusão.</p>
+  </section>
+
+  <section id="direitos">
+    <span class="num">06</span>
+    <h2>Seus <em>direitos</em></h2>
+    <p>Pela LGPD (art. 18), você pode pedir a confirmação de que tratamos seus dados e o acesso a eles, a correção, a anonimização, o bloqueio ou a exclusão, a portabilidade, a informação sobre com quem compartilhamos, a revogação do consentimento e a oposição a um tratamento.</p>
+    <p>Escreva para <a href="mailto:creating@crtng.com.br">creating@crtng.com.br</a>. Respondemos em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), em <a href="https://www.gov.br/anpd/pt-br" target="_blank" rel="noopener">gov.br/anpd</a>.</p>
+  </section>
+
+  <section id="exclusao">
+    <span class="num">07</span>
+    <h2>Como pedir a <em>exclusão</em> dos seus dados</h2>
+    <ol>
+      <li>Mande um e-mail para <a href="mailto:creating@crtng.com.br?subject=Exclus%C3%A3o%20de%20dados">creating@crtng.com.br</a> com o assunto “Exclusão de dados”, ou escreva no WhatsApp <a href="https://wa.me/5511957213373" class="nw">+55 11 95721-3373</a>, dizendo o número ou o perfil que você usou para falar com a gente.</li>
+      <li>Se precisar, confirmamos que o pedido é seu.</li>
+      <li>Em até 15 dias, apagamos seus dados e avisamos você.</li>
+    </ol>
+    <p>Ficam só os dados que a lei obriga a guardar, como os de nota fiscal.</p>
+  </section>
+
+  <section id="seguranca">
+    <span class="num">08</span>
+    <h2>Segurança e <em>mudanças</em></h2>
+    <p>Protegemos seus dados com acesso restrito à equipe da CRTNG e com criptografia. Se um incidente de segurança puder trazer risco a você, avisamos você e a ANPD.</p>
+    <p>Quando esta política mudar, atualizamos esta página e a data no topo.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="logo-mark">CRTNG<span>.</span></div>
+  <div>58.615.971 Rodrigo Mendonca · <span class="nw">CNPJ 58.615.971/0001-26</span></div>
+  <div>Salto / SP · Brasil</div>
+  <div>© 2026 Creating Audiovisual</div>
+</footer>
+
+<!-- Cloudflare Web Analytics — sem cookies, o mesmo da home. -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1aff4127c56f44d9bca5c2881c27b657"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
