@@ -1213,7 +1213,7 @@
      ========================================================================== */
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
-    .nav-links { display: none; }
+    .nav-links li:not(.nav-produtos) { display: none; }
     
     .sobre, .servicos, .clientes, .contato { padding: 100px 24px; }
     .portfolio-header, .portfolio-grid, .frames-header { padding: 0 24px; }
@@ -1676,6 +1676,7 @@
     <li><a href="#sobre" data-cursor-text="Sobre">Sobre</a></li>
     <li><a href="#servicos" data-cursor-text="Serviços">Serviços</a></li>
     <li><a href="#portfolio" data-cursor-text="Trabalhos">Portfólio</a></li>
+    <li class="nav-produtos"><a href="/curso/" data-cursor-text="Curso">Produtos</a></li>
     <li><a href="#contato" data-cursor-text="Fale Conosco">Contato</a></li>
   </ul>
 </nav>
