@@ -1725,36 +1725,35 @@
     .scroll-indicator { display: none; }
   }
 
-  /* Celular e tablet em pé: faixa 16:9 na largura toda, textos abaixo, sobre o preto */
+  /* Celular e tablet em pé: faixa 4:3 na largura toda (o vídeo perde 12,5% de cada lado), textos abaixo.
+     O fundo é um brilho desfocado com as cores do próprio vídeo. Escolha do Rod em 21/11, no iPhone. */
   @media (orientation: portrait) {
     /* preto puro: a máscara em "multiplicar" resulta em #000, e a faixa não pode aparecer antes do vídeo */
     .hero { background: #000; }
     .hero-palco {
       inset: auto;
       left: 0; right: 0;
-      top: calc(38% - 28.125vw);
-      height: 56.25vw;
+      top: calc(38% - 37.5vw);
+      height: 75vw;
     }
     .hero-sombra { display: none; }
     .hero-final {
       left: 24px; right: 24px;
       bottom: auto;
-      top: calc(38% + 28.125vw + 30px);
+      top: calc(38% + 37.5vw + 30px);
       max-width: none;
     }
     .hf-frase { font-size: clamp(26px, 7.4vw, 54px); margin-bottom: 22px; }
     .hf-4k { margin-left: 0; }
     .hero-play { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
 
-    /* Variantes em teste (?cel=b, ?cel=c): o preto vira um brilho com as cores do próprio vídeo */
-    .hero[data-cel="b"] .hero-brilho,
-    .hero[data-cel="c"] .hero-brilho { display: block; }
-    .hero[data-cel="b"].aberta .hero-brilho,
-    .hero[data-cel="c"].aberta .hero-brilho { opacity: 0.42; }
-    /* C: faixa 4:3, mais alta; o vídeo perde 12,5% de cada lado */
-    .hero[data-cel="c"] .hero-palco { top: calc(38% - 37.5vw); height: 75vw; }
-    .hero[data-cel="c"] .hero-final { top: calc(38% + 37.5vw + 30px); }
-    .hero[data-cel="c"] .scroll-indicator { display: none; }  /* a faixa alta não deixa espaço em celular pequeno */
+    .hero-brilho { display: block; }
+    .hero.aberta .hero-brilho { opacity: 0.42; }
+  }
+  /* Em pé e baixo (celular pequeno) ou quase quadrado (tablet, janela estreita no computador):
+     a faixa alta não deixa espaço para o indicador de rolagem */
+  @media (orientation: portrait) and (max-height: 760px), (orientation: portrait) and (min-aspect-ratio: 3/4) {
+    .scroll-indicator { display: none; }
     .hero-play svg { width: 24px; height: 24px; }
   }
 </style>
@@ -2324,22 +2323,18 @@
     ? 'VIDEOS/institucional-720.mp4'
     : 'VIDEOS/institucional-1080.mp4';
 
-  // Variante do celular em pé, em teste: ?cel=b (brilho) ou ?cel=c (brilho + faixa 4:3). Sem nada, fundo preto.
-  const heroCel = ['b', 'c'].includes(qs.get('cel')) ? qs.get('cel') : 'a';
-  heroEl.dataset.cel = heroCel;
-  const heroBrilho = document.querySelector('.hero-brilho');
-  if (heroCel !== 'a' && window.matchMedia('(orientation: portrait)').matches) {
-    // O vídeo é desenhado numa tela de 16×9 pontos, 8 vezes por segundo; o desfoque do CSS faz o resto.
-    // Cada pintura entra com 35% de força, para a cor mudar macia em vez de piscar nos cortes.
-    const ctx = heroBrilho.getContext('2d');
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, 16, 9);
-    ctx.globalAlpha = 0.35;
-    setInterval(() => {
-      if (heroVideo.paused || heroVideo.readyState < 2 || document.hidden) return;
-      try { ctx.drawImage(heroVideo, 0, 0, 16, 9); } catch (e) {}
-    }, 125);
-  }
+  // Brilho do celular em pé: o vídeo é desenhado numa tela de 16×9 pontos, 8 vezes por segundo, e o
+  // desfoque do CSS faz o resto. Cada pintura entra com 35% de força, para a cor mudar macia em vez de
+  // piscar nos cortes. Deitado ou no computador a tela fica escondida e nada é desenhado.
+  const heroEmPe = window.matchMedia('(orientation: portrait)');
+  const heroBrilhoCtx = document.querySelector('.hero-brilho').getContext('2d');
+  heroBrilhoCtx.fillStyle = '#000';
+  heroBrilhoCtx.fillRect(0, 0, 16, 9);
+  heroBrilhoCtx.globalAlpha = 0.35;
+  setInterval(() => {
+    if (!heroEmPe.matches || heroVideo.paused || heroVideo.readyState < 2 || document.hidden) return;
+    try { heroBrilhoCtx.drawImage(heroVideo, 0, 0, 16, 9); } catch (e) {}
+  }, 125);
 
   // A máscara é uma cópia exata da frase: mesma caixa, mesma posição, tudo em branco.
   heroMasc.appendChild(heroTampa.cloneNode(true));
