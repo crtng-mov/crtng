@@ -1701,6 +1701,17 @@
   }
   .hf-4k:hover { opacity: 1; border-color: var(--green); }
   .scroll-indicator { z-index: 6; }
+  .hero-brilho {
+    display: none;
+    position: absolute;
+    left: -15%; top: -10%;
+    width: 130%; height: 120%;
+    z-index: 0;
+    opacity: 0;
+    filter: blur(36px) saturate(1.25);
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+  }
 
   /* O subtítulo saiu do hero e abre a seção Sobre */
   .sobre-text p.sobre-lead { color: var(--white); font-size: 20px; line-height: 1.55; }
@@ -1734,6 +1745,16 @@
     .hf-frase { font-size: clamp(26px, 7.4vw, 54px); margin-bottom: 22px; }
     .hf-4k { margin-left: 0; }
     .hero-play { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
+
+    /* Variantes em teste (?cel=b, ?cel=c): o preto vira um brilho com as cores do próprio vídeo */
+    .hero[data-cel="b"] .hero-brilho,
+    .hero[data-cel="c"] .hero-brilho { display: block; }
+    .hero[data-cel="b"].aberta .hero-brilho,
+    .hero[data-cel="c"].aberta .hero-brilho { opacity: 0.42; }
+    /* C: faixa 4:3, mais alta; o vídeo perde 12,5% de cada lado */
+    .hero[data-cel="c"] .hero-palco { top: calc(38% - 37.5vw); height: 75vw; }
+    .hero[data-cel="c"] .hero-final { top: calc(38% + 37.5vw + 30px); }
+    .hero[data-cel="c"] .scroll-indicator { display: none; }  /* a faixa alta não deixa espaço em celular pequeno */
     .hero-play svg { width: 24px; height: 24px; }
   }
 </style>
@@ -1775,6 +1796,7 @@
 
 <!-- HERO -->
 <section class="hero" id="topo">
+  <canvas class="hero-brilho" width="16" height="9" aria-hidden="true"></canvas>
   <div class="hero-palco">
     <video class="hero-video" muted playsinline loop preload="none" poster="VIDEOS/institucional.jpg" aria-label="Vídeo institucional da CRTNG"></video>
     <div class="hero-sombra" aria-hidden="true"></div>
@@ -1797,7 +1819,7 @@
     <div class="hf-eyebrow">Produtora Audiovisual</div>
     <div class="hf-frase" aria-hidden="true">Histórias que <em>conectam.</em></div>
     <div class="hf-acoes">
-      <button class="hf-btn hf-som" type="button">▶ Ativar som</button>
+      <button class="hf-btn hf-som" type="button"><svg viewBox="0 0 24 24" width="10" height="10" aria-hidden="true"><polygon points="5 3 21 12 5 21" fill="currentColor"/></svg>Ativar som</button>
       <button class="hf-btn hf-ctl hf-pausa" type="button" hidden>Pausar</button>
       <button class="hf-btn hf-ctl hf-mudo" type="button" hidden>Silenciar</button>
       <a class="hf-4k" href="https://www.youtube.com/watch?v=A-lebGVion8" target="_blank" rel="noopener">Ver em 4K no YouTube</a>
@@ -2301,6 +2323,23 @@
   const heroArquivo  = window.matchMedia('(max-width: 900px)').matches
     ? 'VIDEOS/institucional-720.mp4'
     : 'VIDEOS/institucional-1080.mp4';
+
+  // Variante do celular em pé, em teste: ?cel=b (brilho) ou ?cel=c (brilho + faixa 4:3). Sem nada, fundo preto.
+  const heroCel = ['b', 'c'].includes(qs.get('cel')) ? qs.get('cel') : 'a';
+  heroEl.dataset.cel = heroCel;
+  const heroBrilho = document.querySelector('.hero-brilho');
+  if (heroCel !== 'a' && window.matchMedia('(orientation: portrait)').matches) {
+    // O vídeo é desenhado numa tela de 16×9 pontos, 8 vezes por segundo; o desfoque do CSS faz o resto.
+    // Cada pintura entra com 35% de força, para a cor mudar macia em vez de piscar nos cortes.
+    const ctx = heroBrilho.getContext('2d');
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, 16, 9);
+    ctx.globalAlpha = 0.35;
+    setInterval(() => {
+      if (heroVideo.paused || heroVideo.readyState < 2 || document.hidden) return;
+      try { ctx.drawImage(heroVideo, 0, 0, 16, 9); } catch (e) {}
+    }, 125);
+  }
 
   // A máscara é uma cópia exata da frase: mesma caixa, mesma posição, tudo em branco.
   heroMasc.appendChild(heroTampa.cloneNode(true));
