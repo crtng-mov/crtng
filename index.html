@@ -2316,8 +2316,9 @@
   const btnMudo    = document.querySelector('.hf-mudo');
 
   const qs = new URLSearchParams(location.search);
-  // ?efeito=1 mostra o mergulho mesmo em sistema com animações reduzidas (para revisar a peça)
-  const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches && qs.get('efeito') !== '1';
+  // O mergulho toca sempre, como o resto das animações do site, inclusive em sistema com animações
+  // reduzidas (o PC do Rod é um). ?efeito=0 mostra a passagem simples, sem mergulho.
+  const semMovimento = qs.get('efeito') === '0';
   const poupaDados   = !!(navigator.connection && navigator.connection.saveData);
   const heroArquivo  = window.matchMedia('(max-width: 900px)').matches
     ? 'VIDEOS/institucional-720.mp4'
