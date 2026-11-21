@@ -1547,8 +1547,6 @@
      terminar. No celular em pé o palco é uma faixa 16:9, sem corte.
      ========================================================================== */
   .hero {
-    height: 100vh;
-    height: 100svh;
     background: var(--black);
     display: block;
   }
@@ -1709,7 +1707,7 @@
 
   /* Tela deitada e baixa (celular deitado): o piso de 700px empurrava o vídeo para fora da tela */
   @media (orientation: landscape) and (max-height: 600px) {
-    .hero { min-height: 100svh; }
+    .hero { min-height: 100vh; }
     .hero-final { left: 24px; bottom: 20px; }
     .hf-frase { margin-bottom: 14px; }
     .hf-eyebrow { display: none; }  /* tela baixa: a etiqueta caía sobre o letreiro do próprio vídeo */
@@ -2307,11 +2305,15 @@
   // A máscara é uma cópia exata da frase: mesma caixa, mesma posição, tudo em branco.
   heroMasc.appendChild(heroTampa.cloneNode(true));
 
-  // Em economia de dados o vídeo só baixa no toque; nos outros casos baixa durante o carregamento.
-  if (!poupaDados) {
+  // Em economia de dados o vídeo só baixa no toque. Nos outros casos começa a baixar quando a página
+  // termina de carregar: antes disso ele seguraria o evento load e atrasaria o contador de 0 a 100%.
+  function heroCarrega() {
+    if (poupaDados || heroVideo.getAttribute('src')) return;
     heroVideo.preload = 'auto';
     heroVideo.src = heroArquivo;
   }
+  if (document.readyState === 'complete') heroCarrega();
+  else window.addEventListener('load', heroCarrega);
 
   const hero = { iniciado: false, modo: 'loop', pausaUsuario: false, pausaFora: false, naTela: true };
 
