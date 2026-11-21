@@ -1246,8 +1246,6 @@
     .cinema-close { top: -48px; }
 
     footer { flex-direction: column; gap: 16px; text-align: center; }
-    .sobre-video { padding: 20px 24px 100px; }
-    .sv-play { width: 64px; height: 64px; }
   }
 
   /* ==========================================================================
@@ -1333,79 +1331,6 @@
     font-style: italic;
     font-weight: 400;
   }
-
-  /* ==========================================================================
-     QUEM SOMOS · VÍDEO INSTITUCIONAL (novo — faixa abaixo do "Sobre")
-     ========================================================================== */
-  .sobre-video {
-    padding: 20px 48px 160px;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .sobre-video-frame {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 40px 90px rgba(0,0,0,0.55);
-    /* Capa: Rod | Lucas em díptico. A faixa escura de baixo já vem assada na
-       imagem — é onde o texto vive. A cor sólida é o fallback enquanto o JPG
-       não chega, para o frame nunca piscar branco. */
-    background-color: #070707;
-    background-image: url('VIDEOS/institucional-capa.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  .sobre-video-frame::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.14) 2px, rgba(0,0,0,0.14) 4px);
-    opacity: 0.18; pointer-events: none;   /* discreta: sobre foto, 0.4 sujava */
-  }
-  .sv-center {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: flex-end;   /* desce para a faixa escura */
-    gap: 18px; text-align: center; padding: 24px 24px 84px;
-  }
-  .sv-play {
-    width: 92px; height: 92px;
-    border-radius: 50%;
-    background: var(--green);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 16px 40px rgba(3,255,92,0.35);
-  }
-  .sv-play svg { margin-left: 5px; }
-  .sv-headline {
-    font-family: var(--font-sans);
-    font-weight: 300;
-    font-size: clamp(19px, 2.3vw, 30px);
-    letter-spacing: -0.02em;
-    color: var(--white);
-    max-width: 640px;
-    line-height: 1.3;
-    text-shadow: 0 2px 18px rgba(0,0,0,0.75);   /* garante leitura sobre a foto */
-  }
-  .sv-headline em { font-family: var(--font-serif); font-style: italic; color: var(--green); }
-  .sv-badge {
-    position: absolute; top: 20px; left: 20px;
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--green); font-weight: 700;
-    border: 1px solid rgba(3,255,92,0.35);
-    padding: 6px 12px; border-radius: 100px;
-    background: rgba(3,255,92,0.06);
-  }
-  .sv-meta {
-    position: absolute; bottom: 20px; left: 22px; right: 22px;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    gap: 16px; flex-wrap: wrap;
-  }
-  .sv-meta .sv-who { font-size: 12px; letter-spacing: 0.05em; color: var(--white); text-shadow: 0 2px 12px rgba(0,0,0,0.8); }
-  .sv-meta .sv-note { font-size: 11px; letter-spacing: 0.05em; color: #c8cec8; text-align: right; text-shadow: 0 2px 12px rgba(0,0,0,0.8); }
 
   /* ==========================================================================
      PAINEL DE PRÉVIA (ferramenta de decisão — removível, não vai pro site)
@@ -1603,36 +1528,6 @@
     body[data-titles="mescla"] .hero h1 { font-size: 27px; }
   }
 
-  /* 2. SEÇÃO DO VÍDEO INSTITUCIONAL — o frame é 16/9, o que dá ~175px de altura
-     num celular de 360px. Dentro dele o play (64) + a headline (4 linhas) + os
-     paddings pedem ~235px: 34% a mais do que cabe. Daí o esmagamento.
-     Solução: proporção mais alta e conteúdo proporcional em tela pequena. */
-  @media (max-width: 700px) {
-    /* Solta a proporcao fixa e tira o .sv-center do posicionamento absoluto:
-       o frame passa a ter a altura do proprio conteudo. Assim nao ha tela
-       estreita o bastante para comprimir, nem calculo para manter no futuro. */
-    /* Sem o 16/9 o frame fica quase quadrado e o texto deixa de cair na faixa
-       escura da capa — daí o véu extra por cima da foto, só em tela pequena. */
-    .sobre-video-frame {
-      aspect-ratio: auto;
-      background-image:
-        linear-gradient(180deg, rgba(6,8,6,0.58) 0%, rgba(6,8,6,0.38) 42%, rgba(6,8,6,0.74) 100%),
-        url('VIDEOS/institucional-capa.jpg');
-    }
-    .sv-center { position: relative; inset: auto; padding: 56px 18px 52px; gap: 16px; }
-    .sv-play { width: 56px; height: 56px; }
-    .sv-play svg { width: 22px; height: 22px; }
-    .sv-headline { font-size: 15px; line-height: 1.35; max-width: 100%; }
-    .sv-badge { top: 12px; left: 12px; font-size: 9px; padding: 5px 9px; }
-    .sv-meta { bottom: 12px; left: 14px; right: 14px; }
-    .sv-meta .sv-who, .sv-meta .sv-note { font-size: 10px; }
-  }
-  @media (max-width: 420px) {
-    .sv-headline { font-size: 14px; }
-    .sv-meta .sv-note { display: none; }
-  }
-
-
   /* Player de vídeo hospedado aqui (MP4), para peça que o YouTube bloqueou.
      Vertical: o container 16/9 padrão deixaria o 9:16 espremido no meio com
      tarjas enormes, então ele passa a ser regido pela altura da tela. */
@@ -1644,6 +1539,223 @@
     .cinema-container.portrait { height: auto; width: 95%; max-height: 80vh; }
   }
 
+  /* ==========================================================================
+     ABERTURA COM VÍDEO (V3.4)
+     O institucional toca mudo no fundo do hero. Por cima vai uma camada preta
+     com a frase em branco, em "multiplicar": o branco deixa o vídeo passar e o
+     preto tampa. O mergulho é só transform nessa camada, que sai da página ao
+     terminar. No celular em pé o palco é uma faixa 16:9, sem corte.
+     ========================================================================== */
+  .hero {
+    background: var(--black);
+    display: block;
+  }
+  .hero-palco {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    background: #000;
+  }
+  .hero-sombra {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.82) 100%);
+  }
+  .hero-masc {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: #000;
+    mix-blend-mode: multiply;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  .hero-masc .hero-content,
+  .hero-masc .hero-content h1,
+  .hero-masc .hero-content h1 em { color: #fff !important; text-shadow: none !important; }
+  .hero-masc .hero-eyebrow { visibility: hidden; }
+  .hero-masc .word-inner { transform: none !important; }
+  .hero-fundo {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: var(--black);
+    pointer-events: none;
+  }
+  .hero-palco > .hero-content { z-index: 4; }
+  .hero h1 { margin-bottom: 0; }
+
+  .hero-play {
+    position: absolute;
+    left: 50%; top: 50%;
+    z-index: 5;
+    width: 84px; height: 84px;
+    margin: -42px 0 0 -42px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 60px rgba(3,255,92,0.45);
+  }
+  .hero-play[hidden] { display: none; }
+  .hero-play svg { margin-left: 5px; }
+
+  .hero-final {
+    position: absolute;
+    left: 48px;
+    bottom: 56px;
+    z-index: 6;
+    max-width: min(640px, calc(100% - 96px));
+    opacity: 0;
+    visibility: hidden;
+  }
+  .hero.aberta .hero-final { visibility: visible; }
+  .hf-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.7);
+  }
+  .hf-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--green); }
+  .hf-frase {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: clamp(24px, 2.7vw, 46px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow: 0 4px 26px rgba(0,0,0,0.65);
+    margin-bottom: 26px;
+  }
+  .hf-frase em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 1.28em;
+    color: var(--green);
+  }
+  .hf-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; }
+  .hf-btn {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 14px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--green);
+    background: var(--green);
+    color: var(--black);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .hf-btn[hidden] { display: none; }
+  .hf-btn.hf-ctl { background: rgba(10,10,10,0.35); color: var(--white); border-color: rgba(245,245,240,0.45); backdrop-filter: blur(6px); }
+  .hf-btn.hf-ctl:hover { border-color: var(--green); color: var(--green); }
+  .hf-4k {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0.8;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(245,245,240,0.4);
+    padding-bottom: 3px;
+    margin-left: 6px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  }
+  .hf-4k:hover { opacity: 1; border-color: var(--green); }
+  .scroll-indicator { z-index: 6; }
+  .hero-brilho {
+    display: none;
+    position: absolute;
+    left: -15%; top: -10%;
+    width: 130%; height: 120%;
+    z-index: 0;
+    opacity: 0;
+    filter: blur(36px) saturate(1.25);
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+  }
+
+  /* O subtítulo saiu do hero e abre a seção Sobre */
+  .sobre-text p.sobre-lead { color: var(--white); font-size: 20px; line-height: 1.55; }
+
+  /* Tela deitada e baixa (celular deitado): o piso de 700px empurrava o vídeo para fora da tela */
+  @media (orientation: landscape) and (max-height: 600px) {
+    .hero { min-height: 100vh; }
+    .hero-final { left: 24px; bottom: 20px; }
+    .hf-frase { margin-bottom: 14px; }
+    .hf-eyebrow { display: none; }  /* tela baixa: a etiqueta caía sobre o letreiro do próprio vídeo */
+    .scroll-indicator { display: none; }
+  }
+
+  /* Celular e tablet em pé: faixa 4:3 na largura toda (o vídeo perde 12,5% de cada lado), textos abaixo.
+     O fundo é um brilho desfocado com as cores do próprio vídeo. Escolha do Rod em 21/11, no iPhone. */
+  @media (orientation: portrait) {
+    /* preto puro: a máscara em "multiplicar" resulta em #000, e a faixa não pode aparecer antes do vídeo */
+    .hero { background: #000; }
+    .hero-palco {
+      inset: auto;
+      left: 0; right: 0;
+      top: calc(38% - 37.5vw);
+      height: 75vw;
+    }
+    .hero-sombra { display: none; }
+    .hero-final {
+      left: 24px; right: 24px;
+      bottom: auto;
+      top: calc(38% + 37.5vw + 30px);
+      max-width: none;
+    }
+    .hf-frase { font-size: clamp(26px, 7.4vw, 54px); margin-bottom: 22px; }
+    .hf-4k { margin-left: 0; }
+    .hero-play { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
+
+    .hero-brilho { display: block; }
+    .hero.aberta .hero-brilho { opacity: 0.42; }
+  }
+  /* Em pé e baixo (celular pequeno) ou quase quadrado (tablet, janela estreita no computador):
+     a faixa alta não deixa espaço para o indicador de rolagem */
+  @media (orientation: portrait) and (max-height: 760px), (orientation: portrait) and (min-aspect-ratio: 3/4) {
+    .scroll-indicator { display: none; }
+    .hero-play svg { width: 24px; height: 24px; }
+  }
 </style>
 </head>
 <body data-titles="mescla">
@@ -1682,17 +1794,35 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Produtora Audiovisual</div>
-    <h1>
-      <span class="title-wrapper"><span class="word-inner">Histórias</span></span>
-      <span class="title-wrapper"><span class="word-inner">que</span></span>
-      <br>
-      <span class="title-wrapper"><span class="word-inner"><em>conectam.</em></span></span>
-    </h1>
-    <p class="hero-sub">Roteiro, captação e edição que traduzem o técnico em algo que move pessoas.</p>
+<section class="hero" id="topo">
+  <canvas class="hero-brilho" width="16" height="9" aria-hidden="true"></canvas>
+  <div class="hero-palco">
+    <video class="hero-video" muted playsinline loop preload="none" poster="VIDEOS/institucional.jpg" aria-label="Vídeo institucional da CRTNG"></video>
+    <div class="hero-sombra" aria-hidden="true"></div>
+    <div class="hero-masc" aria-hidden="true"></div>
+    <div class="hero-fundo" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Produtora Audiovisual</div>
+      <h1>
+        <span class="title-wrapper"><span class="word-inner">Histórias</span></span>
+        <span class="title-wrapper"><span class="word-inner">que</span></span>
+        <br>
+        <span class="title-wrapper"><span class="word-inner"><em>conectam.</em></span></span>
+      </h1>
+    </div>
+    <button class="hero-play" type="button" data-cursor-text="PLAY" aria-label="Assistir ao vídeo com som" hidden>
+      <svg viewBox="0 0 24 24" width="30" height="30"><polygon points="6 4 20 12 6 20 6 4" fill="#0a0a0a"/></svg>
+    </button>
+  </div>
+  <div class="hero-final">
+    <div class="hf-eyebrow">Produtora Audiovisual</div>
+    <div class="hf-frase" aria-hidden="true">Histórias que <em>conectam.</em></div>
+    <div class="hf-acoes">
+      <button class="hf-btn hf-som" type="button"><svg viewBox="0 0 24 24" width="10" height="10" aria-hidden="true"><polygon points="5 3 21 12 5 21" fill="currentColor"/></svg>Ativar som</button>
+      <button class="hf-btn hf-ctl hf-pausa" type="button" hidden>Pausar</button>
+      <button class="hf-btn hf-ctl hf-mudo" type="button" hidden>Silenciar</button>
+      <a class="hf-4k" href="https://www.youtube.com/watch?v=A-lebGVion8" target="_blank" rel="noopener">Ver em 4K no YouTube</a>
+    </div>
   </div>
   <div class="scroll-indicator">
     <div>Scroll</div>
@@ -1714,6 +1844,7 @@
     </div>
     <div class="sobre-scroll-right">
       <div class="sobre-text">
+        <p class="sobre-lead">Roteiro, captação e edição que traduzem o técnico em algo que move pessoas.</p>
         <p>A <strong>CRTNG (Creating)</strong> nasceu do desejo de transformar ideias em experiências visuais. Somos uma produtora apaixonada por criar, contar histórias e conectar marcas ao seu público.</p>
         <p>Acreditamos que vídeos bem produzidos têm o poder de <strong>engajar, emocionar e gerar resultados reais</strong> — não somos só execução, somos parceria estratégica.</p>
       </div>
@@ -1744,8 +1875,6 @@
   </div>
 </section>
 
-<!-- QUEM SOMOS · VÍDEO (novo — faixa abaixo do "Sobre") -->
-
 <!-- KPIs -->
 <section class="kpis">
   <div class="kpis-grid">
@@ -1768,23 +1897,6 @@
       <div class="kpi-num">2<span>×</span></div>
       <div class="kpi-label">mais engajamento</div>
       <div class="kpi-base">em vídeo de oferta, comparado à produção interna do cliente</div>
-    </div>
-  </div>
-</section>
-
-<section class="sobre-video" id="sobre-video">
-  <div class="section-label reveal">A CRTNG em 2 minutos</div>
-  <div class="sobre-video-frame reveal" data-video-id="A-lebGVion8" data-cursor-text="PLAY">
-    <div class="sv-badge">▶ Vídeo · Horizontal 4K</div>
-    <div class="sv-center">
-      <div class="sv-play">
-        <svg viewBox="0 0 24 24" width="30" height="30"><polygon points="6 4 20 12 6 20 6 4" fill="#0a0a0a"/></svg>
-      </div>
-      <div class="sv-headline">Rod &amp; Lucas explicando, em 2 minutos, o que a CRTNG <em>resolve</em> — não só o vídeo, a história por trás dele.</div>
-    </div>
-    <div class="sv-meta">
-      <div class="sv-who">Rod &amp; Lucas Souto · sócios</div>
-      <div class="sv-note">Clique para assistir</div>
     </div>
   </div>
 </section>
@@ -2190,6 +2302,149 @@
   });
 
   // ==========================================================================
+  // ABERTURA COM VÍDEO (V3.4) — vídeo, som e casos em que algo não coopera
+  // ==========================================================================
+  const heroEl     = document.querySelector('.hero');
+  const heroPalco  = document.querySelector('.hero-palco');
+  const heroVideo  = document.querySelector('.hero-video');
+  const heroMasc   = document.querySelector('.hero-masc');
+  const heroFundo  = document.querySelector('.hero-fundo');
+  const heroTampa  = heroPalco.querySelector(':scope > .hero-content');
+  const heroPlay   = document.querySelector('.hero-play');
+  const btnSom     = document.querySelector('.hf-som');
+  const btnPausa   = document.querySelector('.hf-pausa');
+  const btnMudo    = document.querySelector('.hf-mudo');
+
+  const qs = new URLSearchParams(location.search);
+  // ?efeito=1 mostra o mergulho mesmo em sistema com animações reduzidas (para revisar a peça)
+  const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches && qs.get('efeito') !== '1';
+  const poupaDados   = !!(navigator.connection && navigator.connection.saveData);
+  const heroArquivo  = window.matchMedia('(max-width: 900px)').matches
+    ? 'VIDEOS/institucional-720.mp4'
+    : 'VIDEOS/institucional-1080.mp4';
+
+  // Brilho do celular em pé: o vídeo é desenhado numa tela de 16×9 pontos, 8 vezes por segundo, e o
+  // desfoque do CSS faz o resto. Cada pintura entra com 35% de força, para a cor mudar macia em vez de
+  // piscar nos cortes. Deitado ou no computador a tela fica escondida e nada é desenhado.
+  const heroEmPe = window.matchMedia('(orientation: portrait)');
+  const heroBrilhoCtx = document.querySelector('.hero-brilho').getContext('2d');
+  heroBrilhoCtx.fillStyle = '#000';
+  heroBrilhoCtx.fillRect(0, 0, 16, 9);
+  heroBrilhoCtx.globalAlpha = 0.35;
+  setInterval(() => {
+    if (!heroEmPe.matches || heroVideo.paused || heroVideo.readyState < 2 || document.hidden) return;
+    try { heroBrilhoCtx.drawImage(heroVideo, 0, 0, 16, 9); } catch (e) {}
+  }, 125);
+
+  // A máscara é uma cópia exata da frase: mesma caixa, mesma posição, tudo em branco.
+  heroMasc.appendChild(heroTampa.cloneNode(true));
+
+  // Em economia de dados o vídeo só baixa no toque. Nos outros casos começa a baixar quando a página
+  // termina de carregar: antes disso ele seguraria o evento load e atrasaria o contador de 0 a 100%.
+  function heroCarrega() {
+    if (poupaDados || heroVideo.getAttribute('src')) return;
+    heroVideo.preload = 'auto';
+    heroVideo.src = heroArquivo;
+  }
+  if (document.readyState === 'complete') heroCarrega();
+  else window.addEventListener('load', heroCarrega);
+
+  const hero = { iniciado: false, modo: 'loop', pausaUsuario: false, pausaFora: false, naTela: true };
+
+  function heroBotoes() {
+    const som = hero.modo === 'som';
+    btnSom.hidden   = som;
+    btnPausa.hidden = !som;
+    btnMudo.hidden  = !som;
+    btnPausa.textContent = hero.pausaUsuario ? 'Continuar' : 'Pausar';
+  }
+
+  function heroTocaMudo() {
+    hero.iniciado = true;
+    if (!heroVideo.getAttribute('src')) { heroPlay.hidden = false; return; }
+    heroVideo.muted = true;
+    heroVideo.loop = true;
+    const p = heroVideo.play();
+    if (p && p.catch) p.catch(() => { heroPlay.hidden = false; });
+  }
+
+  function heroAtivaSom() {
+    if (!heroVideo.getAttribute('src')) heroVideo.src = heroArquivo;
+    heroPlay.hidden = true;
+    hero.iniciado = true;
+    hero.modo = 'som';
+    hero.pausaUsuario = false;
+    heroVideo.loop = false;
+    heroVideo.muted = false;
+    try { heroVideo.currentTime = 0; } catch (e) {}
+    const p = heroVideo.play();
+    if (p && p.catch) p.catch(() => {});
+    heroBotoes();
+  }
+
+  function heroVoltaAoLoop(doInicio) {
+    hero.modo = 'loop';
+    hero.pausaUsuario = false;
+    heroVideo.muted = true;
+    heroVideo.loop = true;
+    if (doInicio) { try { heroVideo.currentTime = 0; } catch (e) {} }
+    if (hero.naTela && !document.hidden) {
+      const p = heroVideo.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+    heroBotoes();
+  }
+
+  btnSom.addEventListener('click', heroAtivaSom);
+  heroPlay.addEventListener('click', heroAtivaSom);
+  btnMudo.addEventListener('click', () => heroVoltaAoLoop(false));
+  btnPausa.addEventListener('click', () => {
+    hero.pausaUsuario = !hero.pausaUsuario;
+    if (hero.pausaUsuario) heroVideo.pause(); else heroVideo.play();
+    heroBotoes();
+  });
+  heroVideo.addEventListener('ended', () => { if (hero.modo === 'som') heroVoltaAoLoop(true); });
+
+  // Fora da tela ou com a aba em segundo plano, o vídeo pausa; ao voltar, continua de onde parou.
+  function heroVisibilidade() {
+    if (!hero.iniciado || !heroPlay.hidden) return;
+    const deveTocar = hero.naTela && !document.hidden && !hero.pausaUsuario;
+    if (!deveTocar && !heroVideo.paused) { heroVideo.pause(); hero.pausaFora = true; }
+    else if (deveTocar && hero.pausaFora) { hero.pausaFora = false; heroVideo.play().catch(() => {}); }
+  }
+  new IntersectionObserver((entradas) => {
+    hero.naTela = entradas[0].isIntersecting;
+    heroVisibilidade();
+  }, { threshold: 0.25 }).observe(heroEl);
+  document.addEventListener('visibilitychange', heroVisibilidade);
+
+  // Ponto do mergulho: a haste da letra mais perto do centro do palco (I, T, I de "HISTÓRIAS").
+  // Devolve também a escala que faz essa haste cobrir o palco inteiro.
+  function heroMergulho() {
+    const palco = heroPalco.getBoundingClientRect();
+    const texto = heroMasc.querySelector('.word-inner').firstChild;
+    const fonte = parseFloat(getComputedStyle(heroMasc.querySelector('h1')).fontSize);
+    let alvo = null;
+    [1, 3, 6].forEach((i) => {
+      const r = document.createRange();
+      r.setStart(texto, i);
+      r.setEnd(texto, i + 1);
+      const b = r.getBoundingClientRect();
+      const x = b.left + b.width / 2 - palco.left;
+      const y = b.top + b.height / 2 - palco.top;
+      const d = Math.abs(x - palco.width / 2);
+      if (!alvo || d < alvo.d) alvo = { x, y, d };
+    });
+    const meiaHaste = fonte * 0.085;
+    const meiaAltura = fonte * 0.30;
+    const escala = Math.max(
+      Math.max(alvo.x, palco.width - alvo.x) / meiaHaste,
+      Math.max(alvo.y, palco.height - alvo.y) / meiaAltura
+    ) * 1.08;
+    return { origem: alvo.x + 'px ' + alvo.y + 'px', escala: Math.min(escala, 170) };
+  }
+
+  // ==========================================================================
   // ANIMAÇÃO DE ENTRADA DO SITE (HERO ENTRANCE)
   // ==========================================================================
   function triggerSiteEntrance() {
@@ -2202,7 +2457,7 @@
     });
 
     // Revela o Eyebrow
-    gsap.to('.hero-eyebrow', {
+    gsap.to(heroTampa.querySelector('.hero-eyebrow'), {
       opacity: 1,
       y: 0,
       duration: 1,
@@ -2211,7 +2466,7 @@
     });
 
     // Revela o título palavra por palavra (efeito Shutter Clip)
-    gsap.to('.hero h1 .word-inner', {
+    gsap.to(heroTampa.querySelectorAll('.word-inner'), {
       y: '0%',
       duration: 1.4,
       stagger: 0.15,
@@ -2219,19 +2474,36 @@
       ease: "power4.out"
     });
 
-    // Revela o sub-título e indicador
-    gsap.to(['.hero-sub', '.scroll-indicator'], {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      delay: 0.9,
-      ease: "power2.out"
+    // Depois da frase lida: as letras se enchem com o vídeo e a câmera mergulha nelas.
+    const tl = gsap.timeline({ delay: 2.7 });
+    tl.add(() => {
+      heroFundo.style.display = 'none';
+      heroTocaMudo();
     });
+    if (semMovimento) {
+      tl.to([heroTampa, heroMasc], { opacity: 0, duration: 0.9, ease: "power2.out" });
+    } else {
+      tl.to(heroTampa, { opacity: 0, duration: 0.9, ease: "power2.inOut" });
+      tl.add(() => {
+        const m = heroMergulho();
+        gsap.set(heroMasc, { transformOrigin: m.origem });
+        gsap.to(heroMasc, { scale: m.escala, duration: 1.7, ease: "power3.in" });
+        gsap.to(heroMasc, { opacity: 0, duration: 0.3, delay: 1.4, ease: "none" });
+      }, "+=0.6");
+      tl.to({}, { duration: 1.7 });
+    }
+    tl.add(() => {
+      heroMasc.remove();
+      heroTampa.style.pointerEvents = 'none';
+      heroEl.classList.add('aberta');
+    });
+    tl.to('.hero-sombra', { opacity: 1, duration: 0.8, ease: "power2.out" });
+    tl.to(['.hero-final', '.scroll-indicator'], { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<");
   }
 
   // Preparar estado de animação inicial dos textos antes de rodar GSAP
-  gsap.set('.hero-eyebrow', { y: 20 });
-  gsap.set('.hero-sub', { y: 20 });
+  gsap.set(heroTampa.querySelector('.hero-eyebrow'), { y: 20 });
+  gsap.set('.hero-final', { y: 20 });
   gsap.set('.scroll-indicator', { y: 20 });
   gsap.set('nav', { y: -20 });
 
