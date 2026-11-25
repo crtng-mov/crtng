@@ -38,10 +38,14 @@
     color: var(--white);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    cursor: none; /* Oculta cursor padrão para usar customizado */
   }
 
-  /* Desativa cursor customizado em telas touch */
+  /* Oculta o cursor padrão para usar o customizado, só onde há mouse de verdade */
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+  }
+
+  /* Janela estreita no computador: a seta do sistema aparece junto (como sempre foi) */
   @media (max-width: 900px) {
     body { cursor: default; }
   }
@@ -209,6 +213,15 @@
     border-color: var(--green);
     background: var(--green);
     opacity: 1;
+  }
+
+  /* Cursor customizado só com mouse de verdade (hover + ponteiro fino). No celular e no
+     tablet ele não existe: cada toque manda eventos de mouse "de compatibilidade", o anel
+     pegava o hover, virava a bola verde e ficava parado na tela ao rolar (24/11/2026). */
+  .custom-cursor, .custom-cursor-follower { display: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .custom-cursor { display: block; }
+    .custom-cursor-follower { display: flex; }
   }
 
   /* ==========================================================================
@@ -2194,6 +2207,8 @@
   // ==========================================================================
   const cursorDot = document.querySelector('.custom-cursor');
   const cursorFollower = document.querySelector('.custom-cursor-follower');
+  // Mesmo critério do CSS: sem mouse de verdade (celular, tablet) o cursor fica desligado
+  const temMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   let mouseX = 0, mouseY = 0; // Posição atual do mouse
   let dotX = 0, dotY = 0;     // Posição física da bolinha
@@ -2219,10 +2234,10 @@
 
     requestAnimationFrame(updateCursorPhysics);
   }
-  requestAnimationFrame(updateCursorPhysics);
+  if (temMouse) requestAnimationFrame(updateCursorPhysics);
 
   // Estados de Hover do Cursor
-  const hoverables = document.querySelectorAll('[data-cursor-text], a, button, .case-media');
+  const hoverables = temMouse ? document.querySelectorAll('[data-cursor-text], a, button, .case-media') : [];
   
   hoverables.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -2783,11 +2798,9 @@
     // Retoma o scroll do Lenis
     lenis.start();
     
-    // Restaura exibição dos cursores customizados
-    if (window.innerWidth > 900) {
-      cursorDot.style.display = 'block';
-      cursorFollower.style.display = 'flex';
-    }
+    // Devolve a exibição dos cursores ao CSS, que só os mostra onde há mouse
+    cursorDot.style.display = '';
+    cursorFollower.style.display = '';
 
     // Pausa na hora: esvaziar só depois de 500ms deixaria o áudio tocando
     // durante a transição de saída.
