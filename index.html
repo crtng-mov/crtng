@@ -1147,7 +1147,8 @@
   }
 
   .cinema-container {
-    width: 90%;
+    /* Em tela baixa o player encolhe para sobrar a faixa do "Fechar" em cima (96 px de cada lado) */
+    width: min(90%, calc((100vh - 192px) * 16 / 9));
     max-width: 1200px;
     aspect-ratio: 16/9;
     background: #000;
@@ -1176,10 +1177,13 @@
     border: 0;
   }
 
+  /* No canto da tela. Ele é filho do modal (tela cheia), não do player: o antigo top: -64px
+     o punha acima da tela, e o vídeo só fechava com Esc ou tocando no fundo (24/11/2026). */
   .cinema-close {
     position: absolute;
-    top: -64px;
-    right: 0;
+    top: 20px;
+    right: 28px;
+    z-index: 2;
     background: transparent;
     border: none;
     color: var(--white);
@@ -1268,8 +1272,8 @@
     .frames-track { padding: 0 24px; gap: 16px; transform: none !important; }
     .frame { width: 300px; height: 190px; }
     
-    .cinema-container { width: 95%; }
-    .cinema-close { top: -48px; }
+    .cinema-container { width: min(95%, calc((100vh - 152px) * 16 / 9)); }
+    .cinema-close { top: 12px; right: 12px; }
 
     footer { flex-direction: column; gap: 16px; text-align: center; }
   }
@@ -1559,10 +1563,10 @@
      tarjas enormes, então ele passa a ser regido pela altura da tela. */
   .cinema-iframe-wrapper video { position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: contain; background: #000; border: 0; }
-  .cinema-container.portrait { aspect-ratio: 9 / 16; width: auto; height: 86vh;
-    max-width: 94vw; max-height: 86vh; }
+  .cinema-container.portrait { aspect-ratio: 9 / 16; width: auto; height: min(86vh, calc(100vh - 192px));
+    max-width: 94vw; max-height: min(86vh, calc(100vh - 192px)); }
   @media (max-width: 900px) {
-    .cinema-container.portrait { height: auto; width: 95%; max-height: 80vh; }
+    .cinema-container.portrait { height: auto; width: 95%; max-height: min(80vh, calc(100vh - 152px)); }
   }
 
   /* ==========================================================================
