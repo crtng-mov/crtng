@@ -257,6 +257,16 @@
     position: relative;
   }
 
+  /* Área do cliente: o mesmo texto do menu, num contorno; leva ao CRTNG.OS (os.crtng.com.br) */
+  .nav-cliente a {
+    white-space: nowrap;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin: -9px 0;
+  }
+  .nav-cliente a::after { display: none; }
+
   .nav-links a::after {
     content: '';
     position: absolute;
@@ -1213,7 +1223,10 @@
      ========================================================================== */
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
-    .nav-links li:not(.nav-produtos) { display: none; }
+    .nav-links li:not(.nav-produtos):not(.nav-cliente) { display: none; }
+    .nav-links { gap: 12px; align-items: center; }
+    .nav-links a { letter-spacing: 0.1em; }
+    .nav-cliente a { white-space: nowrap; padding: 7px 10px; }
     
     .sobre, .servicos, .clientes, .contato { padding: 100px 24px; }
     .portfolio-header, .portfolio-grid, .frames-header { padding: 0 24px; }
@@ -1790,6 +1803,7 @@
     <li><a href="#portfolio" data-cursor-text="Trabalhos">Portfólio</a></li>
     <li class="nav-produtos"><a href="/curso/" data-cursor-text="Curso">Produtos</a></li>
     <li><a href="#contato" data-cursor-text="Fale Conosco">Contato</a></li>
+    <li class="nav-cliente"><a href="https://os.crtng.com.br/" data-cursor-text="Entrar">Área do cliente</a></li>
   </ul>
 </nav>
 
